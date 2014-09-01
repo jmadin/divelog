@@ -1,0 +1,39 @@
+<% provide(:title, @user.name) %>
+
+
+<div class="row">
+  <div class="col-md-12">
+
+    <h1><%= @user.name %>
+    <%= link_to 'Add Dive', new_dive_path, class: 'btn btn-lg btn-primary pull-right' %></h1>
+
+    <p>
+      <%= @user.email %>
+    </p>
+
+    <p>
+      <%= gravatar_for @user %>
+      <% sig = Photo.where("user_id IS ? and photo_filename IS ?", @user, "Signature").last %>
+      <% if sig.present? %>
+        <%= image_tag(sig.photograph.url(:thumb)) %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Logged dives:</strong> <%= @user.dives.size %>
+    </p>
+
+    <p>
+      <strong>Logged hours:</strong> <%= (@user.dives.map { |e| e.bottom_time }.sum/60.0).round(2) %>
+    </p>
+
+    <p>
+      <strong>Maximum depth:</strong> <%= @user.dives.map { |e| e.max_depth }.max %> m
+    </p>
+
+    <%= render "shared/dives" %>
+
+    <%#= render "user_photos" %>
+
+  </div>
+</div>

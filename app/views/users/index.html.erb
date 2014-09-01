@@ -1,0 +1,36 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>Divers</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Dives</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, user %></td>
+            <td><%= user.email %></td>
+            <td><%= user.dives.size %></td>
+            <td>
+              <% if current_user.admin %>
+                <%= user.admin %>
+                <% if !current_user?(user) %>
+                  <%= link_to "Delete", user, method: :delete, data: { confirm: "You sure?" } %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

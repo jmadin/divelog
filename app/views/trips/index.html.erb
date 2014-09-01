@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Trips
+    <%= link_to 'New Trip', new_trip_path, class: 'btn btn-lg btn-primary pull-right' %></h1>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <% @trips.each do |trip| %>
+        <li class="list-group-item">              
+          <div class="row">
+            <div class="col-sm-1" style="color: lightgrey;">
+              <%= trip.id %>
+            </div>
+            <div class="col-sm-2">
+              <%= trip.trip_name %>
+            </div>
+            <div class="col-sm-1">
+              <%= trip.trip_organistion %>
+            </div>
+            <div class="col-sm-1">
+              <% if trip.udo %>
+                UDO: <%= User.where(:id => trip.udo).last.name %>
+              <% end %>
+            </div>
+            <div class="col-sm-1">
+              <%= trip.trip_category %>
+            </div>
+            <div class="col-sm-2">
+              <%= trip.start_date %> to <%= trip.end_date %>
+            </div>
+            <div class="col-sm-1">
+              Dives: <%= trip.dives.size %>
+            </div>
+            <div class="col-sm-1">
+              Hours: <%= (trip.dives.map { |e| e.bottom_time }.sum/60.0).round(2) %>
+            </div>
+
+            <div class="col-sm-2">
+
+              <div class="btn-group">
+                <%= link_to 'Show', trip, class: "btn btn-sm btn-default" %>
+                <%= link_to 'Edit', edit_trip_path(trip), class: "btn btn-sm btn-default" %>
+                <%= link_to 'X', trip, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

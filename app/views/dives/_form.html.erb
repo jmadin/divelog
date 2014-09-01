@@ -1,0 +1,308 @@
+<%= form_for(@dive) do |f| %>
+  <%= render 'shared/error_messages', object: @dive %>
+
+  <div class="row">
+    <div class="col-md-12">
+      <% tab = Photo.where("photo_filename IS ?", "MQ Dive Tables").last %>
+      <% if tab.present? %>
+        <%= link_to "Show tables", image_path(tab.photograph.url(:original)), target: "_blank" %>
+      <% end %>
+    </div>
+  </div>
+  
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :trip %><br>
+              <%= f.select :trip_id, Trip.all.collect {|a| [a.trip_name, a.id]}, {:include_blank => true}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :dive_date %><br>
+              <%= f.date_select :dive_date, :start_year => 2000 , class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :dive_number %><br>
+              <%= f.number_field :dive_number, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :organistion %><br>
+              <%= f.text_field :organistion, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :category_description %><br>
+              <%= f.text_area :category_description, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :dive_type %><br>
+              <%= f.select :dive_type, ['SCUBA', 'SSBA', 'Snorkel'], {:selected => @dive.dive_type}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :breathing_medium %><br>
+              <%= f.select :breathing_medium, ['', 'Air', 'Gas mix'], {:selected => @dive.breathing_medium}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :equipment %><br>
+              <%= f.text_area :equipment, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :role %><br>
+              <%= f.select :role, ['Dive coordinator', 'Dive leader', 'Scientific diver', 'Restricted scienctific diver', 'Student'], {:selected => @dive.role}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <%= f.label :tasks %><br>
+              <%= f.text_area :tasks, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+     <div class="well">
+        <div class="row">
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <%= f.label :site_location %><br>
+              <%= f.text_field :site_location, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :latitude %><br>
+              <%= f.text_field :latitude, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :longitude %><br>
+              <%= f.text_field :longitude, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :environment %><br>
+              <%= f.text_area :environment, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :vessel %><br>
+              <%= f.text_field :vessel, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :tide %>
+              <%= f.select :tide, ['', 'high', 'mid', 'low'], {:selected => @dive.tide}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :weather %>
+              <%= f.select :weather, ['', 'excellent', 'good', 'fair', 'mediocre', 'poor', 'dangerous'], {:selected => @dive.weather}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :air_temperature %><br>
+              <%= f.text_field :air_temperature, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :water_temperature %><br>
+              <%= f.text_field :water_temperature, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :wind %><br>
+              <%= f.text_field :wind, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :current %><br>
+              <%= f.text_field :current, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :visiability %><br>
+              <%= f.text_field :visiability, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :diving_conditions %>
+              <%= f.select :conditions, ['', 'excellent', 'good', 'fair', 'mediocre', 'poor', 'dangerous'], {:selected => @dive.conditions}, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :air_in %><br>
+              <%= f.number_field :air_in, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :air_out %><br>
+              <%= f.number_field :air_out, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :time_in %><br>
+              <%= f.time_select :time_in, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :time_out %><br>
+              <%= f.time_select :time_out, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :surface_swim %><br>
+              <%= f.text_field :surface_swim, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :wet_time %><br>
+              Calculated
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :max_depth %><br>
+              <%= f.number_field :max_depth, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :bottom_time %><br>
+              <%= f.number_field :bottom_time, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :no_deco_limit %><br>
+              <%= f.number_field :no_decompression_limit, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <strong>SI</strong><br>
+              <%= f.number_field :surface_interval, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <strong>RF</strong><br>
+              <%= f.text_field :repeitive_factor, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <strong>EBT</strong><br>
+              <%= f.number_field :effective_bottom_time, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <strong>RG</strong><br>
+              <%= f.select :repetitive_group, ('A'..'M'), {:selected => @dive.repetitive_group}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.label :safety_stop %><br>
+              <%= f.text_field :safety_stop, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :dive_buddy %><br>
+              <%= f.select :dive_buddy, User.all.collect {|a| [a.name, a.id]}, {}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= f.label :signed %><br>
+              <%= f.check_box :signed, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= f.label :dive_coordinator %><br>
+              <%= f.select :dive_coordinator, User.all.collect {|a| [a.name, a.id]}, {:include_blank => true}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <%= f.label :comments %><br>
+              <%= f.text_area :comments, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit "Submit", class: "btn btn-primary btn-lg" %>
+
+<% end %>

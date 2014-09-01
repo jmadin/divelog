@@ -1,0 +1,360 @@
+<h1>Showing dive (<%= @dive.user.name %>)</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="well">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Trip</strong><br>
+            <% if @dive.trip %>
+              <%= link_to @dive.trip.trip_name, trip_path(@dive.trip) %>
+            <% else %>
+              Not entered
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Dive date</strong><br>
+            <%= @dive.dive_date %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Dives on this date</strong><br>
+            <%#= Dive.where(:dive_date => @dive.dive_date).first %>
+            <% Dive.where(:dive_date => @dive.dive_date).each do |dn| %>
+              <% if dn.dive_number == @dive.dive_number %>
+                <span class="label label-primary"><%= dn.dive_number %></span>
+              <% else %>
+                <%= link_to dn.dive_number, dive_path(dn.id), class: "label label-default" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <strong>Organisation</strong><br>
+            <%= @dive.organistion %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <strong>Category/description</strong><br>
+            <%= @dive.category_description %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="well">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Dive type</strong><br>
+            <%= @dive.dive_type %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Breathing medium</strong><br>
+            <%= @dive.breathing_medium %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Equipment</strong><br>
+            <%= @dive.equipment %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Role</strong><br>
+            <%= @dive.role %>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <strong>Tasks</strong><br>
+            <%= @dive.tasks %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+   <div class="well">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <strong>Site/location</strong><br>
+            <%= @dive.site_location %>
+            (<%= @dive.latitude %>,
+            <%= @dive.longitude %>)
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-6" data-no-turbolink>
+            <div id="map-canvas" class="map-container" data-no-turbolink></div> 
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Environment</strong><br>
+            <%= @dive.environment %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Vessel</strong><br>
+            <%= @dive.vessel %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Tide</strong><br>
+            <%= @dive.tide %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Weather</strong><br>
+            <%= @dive.weather %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Air temperature</strong><br>
+            <%= @dive.air_temperature %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Water temperature</strong><br>
+            <%= @dive.water_temperature %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Wind</strong><br>
+            <%= @dive.wind %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Current</strong><br>
+            <%= @dive.current %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Visiability</strong><br>
+            <%= @dive.visiability %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <strong>Diving conditions</strong><br>
+            <%= @dive.conditions %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="well">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Air in</strong><br>
+            <%= @dive.air_in %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Air out</strong><br>
+            <%= @dive.air_out %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Time in</strong><br>
+            <%= @dive.time_in.strftime("%H:%M") %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Time out</strong><br>
+            <%= @dive.time_out.strftime("%H:%M") %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Surface swim</strong><br>
+            <%= @dive.surface_swim %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Wet time</strong><br>
+            <%#= @dive.wet_time %>
+            <%= ((@dive.time_out - @dive.time_in) / 60).round %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Max depth</strong><br>
+            <%= @dive.max_depth %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Bottom time</strong><br>
+            <%= @dive.bottom_time %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>No deco limit</strong><br>
+            <%= @dive.no_decompression_limit %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>SI</strong><br>
+            <%= @dive.surface_interval %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>RF</strong><br>
+            <%= @dive.repeitive_factor %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>EBT</strong><br>
+            <%= @dive.effective_bottom_time %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>RG</strong><br>
+            <span class="label label-danger"><%= @dive.repetitive_group %></span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <strong>Safety stop</strong><br>
+            <%= @dive.safety_stop %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Dive buddy</strong><br>
+            <%= link_to User.where(:id => @dive.dive_buddy).last.name, user_path(User.where(:id => @dive.dive_buddy).last) %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Signed</strong><br>
+            <% if @dive.signed %>
+              <% sig = Photo.where("user_id IS ? and photo_filename IS ?", @dive.dive_buddy, "Signature").last %>
+              <% if sig.present? %>
+                <%= image_tag(sig.photograph.url(:thumb)) %>
+              <% end %>
+            <% else %>
+              <%= @dive.signed %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <strong>Dive coordinator</strong><br>
+            <% if @dive.dive_coordinator %>
+              <%= link_to User.where(:id => @dive.dive_coordinator).last.name, user_path(User.where(:id => @dive.dive_coordinator).last) %>
+            <% else %>
+              Not entered
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <strong>Comments</strong><br>
+            <%= @dive.comments %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_dive_path(@dive), class: "btn btn-md btn-default" %>
+      <%= link_to 'Back', user_path(@dive.user), class: "btn btn-md btn-default" %>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<%= render "dive_photos" %>
+
+<script type="text/javascript">
+  var loc = <%= raw [@dive.site_location.to_s, @dive.latitude.to_s, @dive.longitude.to_s, @dive.id.to_s] %>;
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 15,
+    center: new google.maps.LatLng(loc[1], loc[2]),
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
+    streetViewControl: false
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(loc[1], loc[2]),
+    map: map
+  });
+</script>
+
+

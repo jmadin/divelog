@@ -1,0 +1,67 @@
+<h1>All dives</h1>
+
+<div class="row">
+  <div class="col-sm-12">
+    <ul class="list-group">
+      <% dd = 0 %>
+      <% @dives.each do |dive| %>
+
+        <% if dd != dive.dive_date %>
+          </ul>
+          <ul class="list-group">              
+        <% end %>
+
+        <li class="list-group-item">              
+          <div class="row">
+            <div class="col-sm-1" style="color: lightgrey;">
+              <%= dive.id %>
+            </div>
+
+            <div class="col-sm-1">
+              <% if dd != dive.dive_date %>
+                <%= dive.dive_date %>
+                <% dd = dive.dive_date %>
+            <% end %>
+            </div>
+            <div class="col-sm-1">
+              <%= dive.user.name %>
+            </div>
+            <div class="col-sm-1">
+              <span class="label label-primary"><%= dive.dive_number %></span>
+            </div>
+            <div class="col-sm-2">
+              <%= dive.site_location %>
+            </div>
+            <div class="col-sm-1">
+              <%= dive.role %>
+            </div>
+            <div class="col-sm-2">
+              <%= dive.max_depth %> m,
+              <%= dive.effective_bottom_time %> mins
+              <span class="label label-danger"><%= dive.repetitive_group %></span>
+            </div>
+            <div class="col-sm-1">
+              <% if dive.signed %>
+                <% sig = Photo.where("user_id IS ? and photo_filename IS ?", dive.dive_buddy, "Signature").last %>
+                <% if sig.present? %>
+                  <%= image_tag(sig.photograph.url(:thumb)) %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="col-sm-2">
+
+              <div class="btn-group">
+                <%= link_to 'Show', dive, class: "btn btn-sm btn-default" %>
+                <%= link_to 'Edit', edit_dive_path(dive), class: "btn btn-sm btn-default" %>
+                <%= link_to 'X', dive, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+

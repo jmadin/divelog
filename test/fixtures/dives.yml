@@ -1,0 +1,85 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organistion: MyString
+  category_description: MyText
+  dive_date: 2014-08-28
+  dive_number: 1
+  site_location: MyString
+  latitude: 9.99
+  longitude: 9.99
+  vessel: MyString
+  tide: MyString
+  weather: MyString
+  air_temperature: 9.99
+  water_temperature: 9.99
+  wind: MyString
+  current: MyString
+  visiability: 9.99
+  conditions: MyString
+  dive_type: MyString
+  breathing_medium: MyString
+  environment: MyText
+  equipment: MyText
+  tasks: MyText
+  role: MyString
+  air_in: 1
+  air_out: 1
+  time_in: 2014-08-28 06:18:44
+  time_out: 2014-08-28 06:18:44
+  surface_swim: MyString
+  wet_time: 1
+  max_depth: 1
+  bottom_time: 1
+  no_decompression_limit: 1
+  surface_interval: 1
+  repeitive_factor: 9.99
+  effective_bottom_time: 1
+  repetitive_group: MyString
+  safety_stop: MyString
+  user_id: 
+  signed: false
+  dive_coordinator: 1
+  comments: MyText
+
+two:
+  organistion: MyString
+  category_description: MyText
+  dive_date: 2014-08-28
+  dive_number: 1
+  site_location: MyString
+  latitude: 9.99
+  longitude: 9.99
+  vessel: MyString
+  tide: MyString
+  weather: MyString
+  air_temperature: 9.99
+  water_temperature: 9.99
+  wind: MyString
+  current: MyString
+  visiability: 9.99
+  conditions: MyString
+  dive_type: MyString
+  breathing_medium: MyString
+  environment: MyText
+  equipment: MyText
+  tasks: MyText
+  role: MyString
+  air_in: 1
+  air_out: 1
+  time_in: 2014-08-28 06:18:44
+  time_out: 2014-08-28 06:18:44
+  surface_swim: MyString
+  wet_time: 1
+  max_depth: 1
+  bottom_time: 1
+  no_decompression_limit: 1
+  surface_interval: 1
+  repeitive_factor: 9.99
+  effective_bottom_time: 1
+  repetitive_group: MyString
+  safety_stop: MyString
+  user_id: 
+  signed: false
+  dive_coordinator: 1
+  comments: MyText

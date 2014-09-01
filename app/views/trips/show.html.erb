@@ -1,0 +1,100 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= @trip.trip_name %>
+    </h1>
+  </div>
+
+  <div class="col-md-6">
+    <p>
+      <strong>Trip organistion:</strong>
+      <%= @trip.trip_organistion %>
+    </p>
+    <p>
+      <strong>Trip category:</strong>
+      <%= @trip.trip_category %>
+    </p>
+    <p>
+      <strong>Date:</strong>
+      <%= @trip.start_date %> to <%= @trip.end_date %>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <%= @trip.description %>
+    </p>
+    <p>
+      <strong>UDO:</strong>
+      <% if @trip.udo %>
+        <%= link_to User.where(:id => @trip.udo).last.name, user_path(User.where(:id => @trip.udo).last) %>
+      <% else %>
+        Not entered
+      <% end %>
+    </p>
+
+    <p>
+      <strong>UDO Signed:</strong>
+
+      <% if @trip.signed %>
+        <% sig = Photo.where("user_id IS ? and photo_filename IS ?", @trip.udo, "Signature").last %>
+        <% if sig.present? %>
+          <%= image_tag(sig.photograph.url(:thumb)) %>
+        <% end %>
+      <% else %>
+        <%= @trip.signed %>
+      <% end %>
+    </p>
+
+  </div>
+
+  <div class="col-md-6">
+    <div id="map-canvas" class="map-container"></div> 
+  </div><br>
+
+  <div class="col-md-12">
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_trip_path(@trip), class: "btn btn-md btn-default" %>
+      <%= link_to 'Back', trips_path, class: "btn btn-md btn-default" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Trip dives</h2>
+
+    <%= render "shared/dives" %>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  var locations = <%= raw @dives.map {|i| [i.dive_date.to_s, i.latitude.to_s, i.longitude.to_s, i.id.to_s] } %>;
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 5,
+    center: new google.maps.LatLng(locations[0][1], locations[0][2]),
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
+    streetViewControl: false
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker, i;
+
+  for (i = 0; i < locations.length; i++) {  
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      map: map
+    });
+
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent('<a data-no-turbolink="true" href="/dives/'+locations[i][3]+'">'+locations[i][0]+'</a>');
+        infowindow.open(map, marker);
+      }
+    })(marker, i));
+  }
+</script>
+
+
